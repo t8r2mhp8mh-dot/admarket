@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AdMarket — биржа рекламы</title>
+<meta name="description" content="AdMarket — каталог рекламных площадок и маркетплейс рекламы.">
+<style>
+:root{--bg:#0b1020;--panel:#121a2d;--panel2:#18233a;--line:#26344f;--text:#eef3ff;--muted:#9aabc7;--accent:#7c9cff;--accent2:#a78bfa;--green:#42d6a4;--red:#ff7d91}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% -10%,#1d2b50 0,transparent 42%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.wrap{max-width:1180px;margin:auto;padding:0 22px}
+header{position:sticky;top:0;z-index:10;background:#0b1020eF;backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:10px;font-weight:850;font-size:21px;letter-spacing:-.7px}.logo{width:35px;height:35px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#0b1020;font-weight:900}.navlinks{display:flex;gap:22px}.navlinks a{color:var(--muted);text-decoration:none}.navlinks a:hover{color:var(--text)}.btn{border:0;border-radius:11px;padding:11px 16px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#081020;font-weight:750}.btn.secondary{background:var(--panel2);border:1px solid var(--line);color:var(--text)}.btn.small{padding:8px 12px;font-size:13px}
+.hero{padding:66px 0 42px;display:grid;grid-template-columns:1.25fr .75fr;gap:30px;align-items:center}.eyebrow{color:var(--green);font-weight:750;font-size:12px;letter-spacing:1.4px;text-transform:uppercase}.hero h1{font-size:clamp(36px,5.5vw,62px);line-height:1.04;letter-spacing:-2.6px;margin:14px 0}.hero p{color:var(--muted);font-size:17px;max-width:650px}.hero-card{background:linear-gradient(145deg,#182642,#111a2d);border:1px solid var(--line);border-radius:22px;padding:23px;box-shadow:0 22px 65px #0005}.metric{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line)}.metric:last-child{border:0}.metric b{font-size:19px}
+.section{padding:26px 0 54px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:20px}.section h2{font-size:27px;letter-spacing:-.8px;margin:0}.sub{color:var(--muted);margin:5px 0 0}.toolbar{display:grid;grid-template-columns:1fr 190px 190px;gap:10px;margin-bottom:17px}.field{width:100%;padding:12px 14px;border:1px solid var(--line);background:#10182a;color:var(--text);border-radius:11px;outline:none}.field:focus{border-color:var(--accent)}select option{background:#121a2d}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.chip{padding:8px 13px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--muted)}.chip.active{background:#28385b;color:#fff;border-color:#536fae}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.card{background:linear-gradient(160deg,#141f35,#101827);border:1px solid var(--line);border-radius:17px;padding:18px;transition:.18s}.card:hover{transform:translateY(-3px);border-color:#526b9e}.cardtop{display:flex;justify-content:space-between;align-items:center;gap:10px}.avatar{width:43px;height:43px;border-radius:13px;background:#253658;display:grid;place-items:center;font-size:19px}.tag{font-size:11px;color:#b8c8e8;background:#243451;padding:5px 9px;border-radius:999px}.card h3{margin:14px 0 3px;font-size:17px}.muted{color:var(--muted);font-size:13px}.stats{display:flex;gap:15px;margin:15px 0;color:var(--muted);font-size:12px}.price-row{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:13px;margin-top:12px}.price{font-size:21px;font-weight:850}.verified{color:var(--green);font-size:11px}
+.empty{grid-column:1/-1;text-align:center;padding:45px 15px;border:1px dashed var(--line);border-radius:16px;color:var(--muted)}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.step{padding:20px;background:var(--panel);border:1px solid var(--line);border-radius:15px}.stepnum{color:var(--accent);font-weight:850;font-size:13px}.step h3{margin:8px 0}.step p{margin:0;color:var(--muted);font-size:13px}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:13px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.modal{position:fixed;inset:0;background:#030712c9;display:none;align-items:center;justify-content:center;padding:18px;z-index:30}.modal.open{display:flex}.dialog{width:min(560px,100%);max-height:90vh;overflow:auto;background:#121b2e;border:1px solid var(--line);border-radius:19px;padding:22px;box-shadow:0 25px 90px #0009}.dialog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.dialog h2{margin:0}.close{background:transparent;border:0;color:var(--muted);font-size:25px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.formrow{display:flex;flex-direction:column;gap:6px}.formrow.full{grid-column:1/-1}.formrow label{font-size:12px;color:var(--muted)}textarea.field{min-height:85px;resize:vertical}.notice{font-size:12px;color:var(--muted);margin-top:12px}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#203352;border:1px solid #49648f;padding:12px 18px;border-radius:12px;display:none;z-index:40}
+@media(max-width:850px){.hero{grid-template-columns:1fr;padding-top:45px}.grid{grid-template-columns:repeat(2,1fr)}.toolbar{grid-template-columns:1fr 1fr}.toolbar input{grid-column:1/-1}}
+@media(max-width:580px){.navlinks{display:none}.nav .btn{font-size:12px;padding:9px 11px}.wrap{padding:0 15px}.grid,.how{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.toolbar input{grid-column:auto}.hero h1{letter-spacing:-1.6px}.section-head{align-items:start;flex-direction:column}.formgrid{grid-template-columns:1fr}.formrow.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <div class="brand"><div class="logo">A</div>AdMarket</div>
+  <nav class="navlinks"><a href="#catalog">Каталог</a><a href="#how">Как это работает</a><a href="#about">О платформе</a></nav>
+  <button class="btn small" onclick="openModal('listing')">+ Добавить площадку</button>
+</div></header>
+<main>
+<div class="wrap">
+<section class="hero">
+ <div><div class="eyebrow">Рекламный маркетплейс</div><h1>Реклама там,<br>где есть ваша аудитория.</h1><p>Находите рекламные площадки, сравнивайте предложения и связывайтесь с владельцами напрямую. Telegram, блогеры, видео и сайты — в одном каталоге.</p><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:23px"><a class="btn" href="#catalog" style="text-decoration:none">Найти площадку</a><button class="btn secondary" onclick="openModal('listing')">Стать продавцом</button></div></div>
+ <div class="hero-card"><div class="eyebrow">AdMarket в одном месте</div><div class="metric"><span class="muted">Категории рекламы</span><b>5+</b></div><div class="metric"><span class="muted">Формат работы</span><b>Прямой контакт</b></div><div class="metric"><span class="muted">Стоимость входа</span><b style="color:var(--green)">Бесплатно</b></div><p class="muted" style="margin:12px 0 0">Начните с публикации предложения или поиска подходящей площадки.</p></div>
+</section>
+<section class="section" id="catalog">
+ <div class="section-head"><div><h2>Каталог площадок</h2><p class="sub">Выберите формат и найдите подходящее размещение.</p></div><button class="btn secondary" onclick="openModal('listing')">+ Разместить предложение</button></div>
+ <div class="toolbar"><input id="search" class="field" placeholder="Поиск по названию или тематике..." oninput="render()"><select id="sort" class="field" onchange="render()"><option value="default">Сначала рекомендуемые</option><option value="low">Сначала дешевле</option><option value="high">Сначала дороже</option><option value="audience">По размеру аудитории</option></select><select id="country" class="field" onchange="render()"><option value="">Все страны</option><option>Казахстан</option><option>Узбекистан</option><option>Россия</option><option>Беларусь</option><option>Другая страна</option></select></div>
+ <div class="chips" id="chips"><button class="chip active" data-cat="Все" onclick="setCat(this)">Все</button><button class="chip" data-cat="Telegram" onclick="setCat(this)">Telegram</button><button class="chip" data-cat="Instagram" onclick="setCat(this)">Instagram</button><button class="chip" data-cat="TikTok" onclick="setCat(this)">TikTok</button><button class="chip" data-cat="YouTube" onclick="setCat(this)">YouTube</button><button class="chip" data-cat="Сайты" onclick="setCat(this)">Сайты</button><button class="chip" data-cat="Блогеры" onclick="setCat(this)">Блогеры</button></div>
+ <div class="grid" id="listings"></div>
+</section>
+<section class="section" id="how"><div class="section-head"><div><h2>Как это работает</h2><p class="sub">Простой старт для рекламодателей и владельцев площадок.</p></div></div>
+ <div class="how"><div class="step"><div class="stepnum">01 / РЕКЛАМОДАТЕЛЬ</div><h3>Найдите площадку</h3><p>Используйте поиск и фильтры, сравните тематику, аудиторию и цену.</p></div><div class="step"><div class="stepnum">02 / ВЛАДЕЛЕЦ</div><h3>Добавьте предложение</h3><p>Укажите платформу, описание, аудиторию, стоимость и контакт.</p></div><div class="step"><div class="stepnum">03 / СДЕЛКА</div><h3>Свяжитесь напрямую</h3><p>Обсудите детали размещения и договоритесь об оплате напрямую.</p></div></div>
+</section>
+<section class="section" id="about"><div class="hero-card"><h2 style="margin:0 0 8px">AdMarket — первая версия</h2><p class="muted" style="margin:0">Сейчас это бесплатный каталог и витрина рекламных предложений. Платежи, эскроу, встроенный чат и автоматическая проверка статистики пока не подключены. Проверяйте условия и данные продавца самостоятельно перед оплатой.</p></div></section>
+</div>
+</main>
+<footer><div class="wrap foot"><span>© 2026 AdMarket. Демоверсия маркетплейса.</span><span>Связь между рекламодателями и площадками.</span></div></footer>
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="dialog"><div class="dialog-head"><h2 id="modalTitle">Добавить площадку</h2><button class="close" onclick="closeModal()">×</button></div>
+<form id="listingForm"><div class="formgrid">
+<div class="formrow"><label>Название площадки *</label><input class="field" name="name" required maxlength="60" placeholder="Например, Tech News"></div>
+<div class="formrow"><label>Платформа *</label><select class="field" name="category" required><option value="Telegram">Telegram</option><option value="Instagram">Instagram</option><option value="TikTok">TikTok</option><option value="YouTube">YouTube</option><option value="Сайты">Сайты</option><option value="Блогеры">Блогеры</option></select></div>
+<div class="formrow"><label>Страна</label><select class="field" name="country"><option>Казахстан</option><option>Узбекистан</option><option>Россия</option><option>Беларусь</option><option>Другая страна</option></select></div>
+<div class="formrow"><label>Тематика</label><input class="field" name="topic" placeholder="Технологии, бизнес..."></div>
+<div class="formrow"><label>Подписчики / охват</label><input class="field" name="audience" type="number" min="0" placeholder="15000"></div>
+<div class="formrow"><label>Цена размещения (€) *</label><input class="field" name="price" type="number" min="0" step="0.01" required placeholder="50"></div>
+<div class="formrow full"><label>Ссылка на площадку *</label><input class="field" name="url" type="url" required placeholder="https://..."></div>
+<div class="formrow full"><label>Контакт для связи (Telegram, email или телефон) *</label><input class="field" name="contact" required placeholder="@username или email"></div>
+<div class="formrow full"><label>Описание</label><textarea class="field" name="description" maxlength="400" placeholder="Опишите аудиторию и формат рекламы..."></textarea></div>
+</div><p class="notice">Публикуя предложение, вы подтверждаете право предлагать это рекламное размещение. Не указывайте чужие данные без разрешения.</p><button class="btn" style="width:100%;margin-top:12px">Опубликовать предложение</button></form>
+</div></div>
+<div class="toast" id="toast"></div>
+<script>
+const seed=[
+{id:1,name:"Tech News",category:"Telegram",country:"Казахстан",topic:"Технологии и гаджеты",audience:52000,price:45,url:"https://t.me/",contact:"@example",description:"Новости технологий, обзоры гаджетов и цифровые сервисы.",demo:true},
+{id:2,name:"Бизнес Сегодня",category:"Telegram",country:"Узбекистан",topic:"Бизнес и финансы",audience:31000,price:60,url:"https://t.me/",contact:"@example",description:"Предпринимательство, финансы и развитие бизнеса.",demo:true},
+{id:3,name:"City Lifestyle",category:"Instagram",country:"Россия",topic:"Городской лайфстайл",audience:84000,price:120,url:"https://instagram.com/",contact:"@example",description:"Городская жизнь, места и локальные бренды.",demo:true},
+{id:4,name:"Digital Creator",category:"YouTube",country:"Казахстан",topic:"Маркетинг и технологии",audience:27000,price:180,url:"https://youtube.com/",contact:"@example",description:"Видео о маркетинге, цифровых продуктах и инструментах.",demo:true},
+{id:5,name:"Trend Shorts",category:"TikTok",country:"Узбекистан",topic:"Развлечения",audience:110000,price:90,url:"https://tiktok.com/",contact:"@example",description:"Короткие развлекательные ролики и нативные интеграции.",demo:true},
+{id:6,name:"Media Portal",category:"Сайты",country:"Беларусь",topic:"Новости",audience:40000,price:75,url:"https://example.com/",contact:"ads@example.com",description:"Баннеры и нативные публикации на тематическом сайте.",demo:true}
+];
+let custom=JSON.parse(localStorage.getItem("admarket_items")||"[]"),active="Все";
+function allItems(){return [...custom,...seed]}
+function fmt(n){return Number(n).toLocaleString("ru-RU")}
+function render(){
+ let q=document.getElementById("search").value.toLowerCase(),country=document.getElementById("country").value,sort=document.getElementById("sort").value;
+ let arr=allItems().filter(x=>(active==="Все"||x.category===active)&&(!country||x.country===country)&&(`${x.name} ${x.topic} ${x.description} ${x.category}`.toLowerCase().includes(q)));
+ if(sort==="low")arr.sort((a,b)=>a.price-b.price);if(sort==="high")arr.sort((a,b)=>b.price-a.price);if(sort==="audience")arr.sort((a,b)=>b.audience-a.audience);
+ const root=document.getElementById("listings");
+ if(!arr.length){root.innerHTML='<div class="empty">Ничего не найдено. Попробуйте изменить фильтры или добавить предложение.</div>';return}
+ root.innerHTML=arr.map(x=>`<article class="card"><div class="cardtop"><div class="avatar">${({Telegram:"✈",Instagram:"◎",TikTok:"♪",YouTube:"▶",Сайты:"⌘",Блогеры:"★"})[x.category]||"A"}</div><span class="tag">${esc(x.category)}</span></div><h3>${esc(x.name)}</h3><div class="muted">${esc(x.topic||"Без тематики")} · ${esc(x.country||"Страна не указана")}</div><div class="stats"><span>◉ ${fmt(x.audience||0)} аудитории</span>${x.demo?'<span>Демо</span>':'<span class="verified">Новое предложение</span>'}</div><p class="muted">${esc(x.description||"Рекламное размещение. Уточните детали у владельца.")}</p><div class="price-row"><div><div class="muted">Цена за размещение</div><div class="price">${fmt(x.price)} €</div></div><button class="btn small" onclick="details(${x.id})">Связаться</button></div></article>`).join("");
+}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function setCat(el){active=el.dataset.cat;document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active",c===el));render()}
+function openModal(){document.getElementById("modal").classList.add("open")}
+function closeModal(){document.getElementById("modal").classList.remove("open")}
+function toast(s){let t=document.getElementById("toast");t.textContent=s;t.style.display="block";setTimeout(()=>t.style.display="none",3200)}
+function details(id){let x=allItems().find(i=>i.id===id);if(!x)return;let msg=`Здравствуйте! Интересует рекламное размещение на площадке "${x.name}". Подскажите, пожалуйста, актуальные условия.`;let tg=x.contact.startsWith("@")?"https://t.me/"+x.contact.slice(1):null;let body=`<div class="cardtop"><span class="tag">${esc(x.category)}</span><span class="verified">${x.demo?"Демонстрационная карточка":"Предложение пользователя"}</span></div><h3>${esc(x.name)}</h3><p class="muted">${esc(x.description||"")}</p><p>Аудитория: <b>${fmt(x.audience||0)}</b><br>Цена: <b>${fmt(x.price)} €</b><br>Страна: <b>${esc(x.country||"не указана")}</b></p><p class="muted">Контакт: ${esc(x.contact)}</p><a class="btn" style="display:inline-block;text-decoration:none" target="_blank" rel="noopener" href="${tg||x.url}">${tg?"Написать в Telegram":"Открыть площадку"}</a><p class="notice">Проверьте владельца и статистику самостоятельно. AdMarket пока не принимает оплату и не гарантирует исполнение сделки.</p>`;document.getElementById("modalTitle").textContent="Контакт продавца";document.getElementById("listingForm").style.display="none";document.querySelector(".dialog").insertAdjacentHTML("beforeend",`<div id="detailBody">${body}<button class="btn secondary" style="width:100%;margin-top:12px" onclick="closeDetails()">Закрыть</button></div>`);openModal()}
+function closeDetails(){document.getElementById("detailBody")?.remove();document.getElementById("listingForm").style.display="block";document.getElementById("modalTitle").textContent="Добавить площадку";closeModal()}
+document.getElementById("listingForm").addEventListener("submit",e=>{e.preventDefault();let d=Object.fromEntries(new FormData(e.target));let item={...d,id:Date.now(),audience:Number(d.audience)||0,price:Number(d.price),demo:false};custom.unshift(item);localStorage.setItem("admarket_items",JSON.stringify(custom));e.target.reset();closeModal();render();toast("Предложение добавлено на этом устройстве.")});
+render();
+</script>
+</body></html>
